@@ -23,7 +23,7 @@ app.get("/api/hello", function (req, res) {
   res.json({ greeting: "hello API" });
 });
 
-// send the current time in JSON format
+// send the time in JSON format
 app.get("/api", function (req, res) {
   const date = new Date();
   res.json({ unix: date.getTime(), utc: date.toUTCString() });
