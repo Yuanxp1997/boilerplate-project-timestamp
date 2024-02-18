@@ -24,16 +24,18 @@ app.get("/api/hello", function (req, res) {
 });
 
 // send the current time in JSON format
+app.get("/api", function (req, res) {
+  const date = new Date();
+  res.json({ unix: date.getTime(), utc: date.toUTCString() });
+});
 app.get("/api/:timestamp", function (req, res) {
-  let timestamp = req.params.timestamp;
-  let date;
-  if (timestamp.includes("-")) {
-    date = new Date(timestamp);
-  } else {
+  const timestamp = req.params.timestamp;
+  let date = new Date(timestamp);
+  if (date.toString() === "Invalid Date") {
     date = new Date(parseInt(timestamp));
   }
   if (date.toString() === "Invalid Date") {
-    res.json({ error: date.toString() });
+    res.json({ error: "Invalid Date" });
   } else {
     res.json({ unix: date.getTime(), utc: date.toUTCString() });
   }
